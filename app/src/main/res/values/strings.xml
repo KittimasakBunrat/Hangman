@@ -1,0 +1,29 @@
+<resources>
+    <string name="b1">A</string>
+    <string name="b2">B</string>
+    <string name="b3">C</string>
+    <string name="b4">D</string>
+    <string name="b5">E</string>
+    <string name="b6">F</string>
+    <string name="b7">G</string>
+    <string name="b8">H</string>
+    <string name="b9">I</string>
+    <string name="b10">J</string>
+    <string name="b11">K</string>
+    <string name="b12">L</string>
+    <string name="b13">M</string>
+    <string name="b14">N</string>
+    <string name="b15">O</string>
+    <string name="b16">P</string>
+    <string name="b17">Q</string>
+    <string name="b18">R</string>
+    <string name="b19">S</string>
+    <string name="b20">T</string>
+    <string name="b21">U</string>
+    <string name="b22">V</string>
+    <string name="b23">W</string>
+    <string name="b24">X</string>
+    <string name="b25">Y</string>
+    <string name="b26">Z</string>
+    <string name="app_name">Hangman</string>
+</resources>
