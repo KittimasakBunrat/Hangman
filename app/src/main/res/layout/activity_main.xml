@@ -4,7 +4,19 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:gravity="center|bottom">
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/tekst"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="YEEEET"/>
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:orientation="vertical"
+       android:gravity="center|bottom">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,6 +25,7 @@
         android:weightSum="9">
 
         <Button
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:id="@+id/button1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -211,5 +224,7 @@
         android:layout_weight="1"/>
 
     </LinearLayout>
+
+   </LinearLayout>
 
 </LinearLayout>

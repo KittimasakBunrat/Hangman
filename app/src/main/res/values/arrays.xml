@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="ord">
+        <item>Ennn</item>
+        <item>Tooo</item>
+        <item>Treeee</item>
+        <item>Fireeee</item>
+        <item>Fem</item>
+    </string-array>
+</resources>
