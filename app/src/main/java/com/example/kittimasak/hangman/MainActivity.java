@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView tekst;
     int aob = 26;
     ArrayList<String> ordliste;
+    char[] ordArray;
     String ord;
 
     @Override
@@ -31,15 +33,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //Initialiserer
 
-
-        ordliste = new ArrayList<String>();
         ordliste = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.ord)));
         int random = new Random().nextInt(ordliste.size());
         ord = ordliste.get(random);
 
         tekst = (TextView) findViewById(R.id.tekst);
+        tekst.setText(String.valueOf(ord.length()));
 
-        tekst.setText(ord);
+
         button = new Button[aob];
         for(int i = 0; i<button.length; i++) {
            button[i] = (Button) findViewById(getResources().getIdentifier("button"+(i+1), "id", getPackageName()));
@@ -49,6 +50,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+    public void setArray(String s) {
+
+    }
 
     @Override
     public void onClick(View view) {
