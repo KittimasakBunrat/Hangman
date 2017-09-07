@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -21,9 +22,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button[] button;
     Button en;
     TextView tekst;
+    TextView tekst1;
     int aob = 26;
     ArrayList<String> ordliste;
-    char[] ordArray;
+    ArrayList<Character> ordArray;
+    ArrayList<Character> temp;
     String ord;
 
     @Override
@@ -34,11 +37,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Initialiserer
 
         ordliste = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.ord)));
+        ordArray = new ArrayList<Character>();
+        temp = new ArrayList<Character>();
         int random = new Random().nextInt(ordliste.size());
         ord = ordliste.get(random);
 
+        setArray(ordArray, ord);
+
         tekst = (TextView) findViewById(R.id.tekst);
-        tekst.setText(String.valueOf(ord.length()));
+        tekst1 = (TextView) findViewById(R.id.tekst1);
+        tekst.setText(Arrays.toString(ordArray.toArray()));
+
 
 
         button = new Button[aob];
@@ -50,44 +59,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    public void setArray(String s) {
+    public void setArray(ArrayList<Character> ord,String s) {
+        String k = s.toUpperCase();
+        for(int i=0;i<k.length(); i++) {
+            ord.add(k.charAt(i));
+        }
+    }
+
+    public void gameLogic(ArrayList<Character> ord, ArrayList<Character> temp, Character c, Button b) {
+        b.setBackgroundColor(Color.RED);
+        for (int i=0; i<ord.size(); i++) {
+            if(c.equals(ord.get(i))) {
+                b.setBackgroundColor(Color.GREEN);
+                temp.add(c);
+            }
+        }
+        tekst1.setText(Arrays.toString(temp.toArray()));
+        b.setEnabled(false);
 
     }
+
+
 
     @Override
     public void onClick(View view) {
 
         Button b = (Button) view;
-        b.setAlpha(.2f);
-        tekst.setText(String.valueOf(b.getText()));
-        /*
-        switch (view.getId()) {
+        //b.setAlpha(.2f);
+        String stringTemp = (String) b.getText();
+        gameLogic(ordArray, temp,Character.valueOf(stringTemp.charAt(0)), b);
 
-            case R.id.button1:
-            tekst.setText(String.valueOf(ordliste.size()));
-                break;
-
-            case R.id.button2:
-                tekst.setText(ordliste.get(1));
-                break;
-
-            case R.id.button3:
-                tekst.setText(ordliste.get(2));
-                break;
-
-            case R.id.button4:
-                tekst.setText("Fire");
-                break;
-
-            case R.id.button5:
-                tekst.setText("Fem");
-                break;
-
-            default:
-                break;
-
-        }
-
-        */
     }
 }
