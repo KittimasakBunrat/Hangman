@@ -23,11 +23,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button en;
     TextView tekst;
     TextView tekst1;
+    TextView tekst2;
     int aob = 26;
     ArrayList<String> ordliste;
     ArrayList<Character> ordArray;
     ArrayList<Character> temp;
     String ord;
+    final int maxforsok = 6;
+    int antallforsok;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +44,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         temp = new ArrayList<Character>();
         int random = new Random().nextInt(ordliste.size());
         ord = ordliste.get(random);
+        antallforsok = 0;
 
         setArray(ordArray, ord);
 
+        for (int i=0; i<ordArray.size(); i++) {
+            Character t = null;
+            temp.add(t);
+        }
+
         tekst = (TextView) findViewById(R.id.tekst);
         tekst1 = (TextView) findViewById(R.id.tekst1);
+        tekst2 = (TextView) findViewById(R.id.tekst2);
         tekst.setText(Arrays.toString(ordArray.toArray()));
 
 
@@ -71,12 +81,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         for (int i=0; i<ord.size(); i++) {
             if(c.equals(ord.get(i))) {
                 b.setBackgroundColor(Color.GREEN);
-                temp.add(c);
+                temp.set(i,c);
             }
         }
         tekst1.setText(Arrays.toString(temp.toArray()));
+        tekst2.setText(String.valueOf(antallforsok));
         b.setEnabled(false);
-
     }
 
 
@@ -85,7 +95,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
 
         Button b = (Button) view;
-        //b.setAlpha(.2f);
         String stringTemp = (String) b.getText();
         gameLogic(ordArray, temp,Character.valueOf(stringTemp.charAt(0)), b);
 
