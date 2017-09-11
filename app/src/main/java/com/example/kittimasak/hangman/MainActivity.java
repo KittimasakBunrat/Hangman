@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         temp = new ArrayList<Character>();
         int random = new Random().nextInt(ordliste.size());
         ord = ordliste.get(random);
-        antallforsok = 0;
+        antallforsok = 6;
         loop = true;
 
         setArray(ordArray, ord);
@@ -53,11 +53,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tekst1 = (TextView) findViewById(R.id.tekst1);
         tekst2 = (TextView) findViewById(R.id.tekst2);
         tekst.setText(Arrays.toString(ordArray.toArray()));
+        tekst2.setText(String.valueOf(antallforsok));
     }
 
     public void counter(boolean b) {
         if(b) {
-            antallforsok++;
+            antallforsok--;
         }
     }
 
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void gameLogic(ArrayList<Character> ord, ArrayList<Character> temp, Character c, Button b) {
-        if(antallforsok<6 && !(temp.equals(ord))) {
+        if(antallforsok>=0 && !(temp.equals(ord))) {
         b.setBackgroundColor(Color.RED);
             for (int i = 0; i < ord.size(); i++) {
                 if (c.equals(ord.get(i))) {
@@ -95,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String stringTemp = (String) b.getText();
         loop = true;
         gameLogic(ordArray, temp,Character.valueOf(stringTemp.charAt(0)), b);
-        if(antallforsok == 6) {
+        if(antallforsok == 0) {
             tekst.setText("TAPTE");
         } else if(temp.equals(ordArray)) {
             tekst.setText("VANT");
