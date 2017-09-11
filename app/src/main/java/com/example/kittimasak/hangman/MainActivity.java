@@ -60,15 +60,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tekst1 = (TextView) findViewById(R.id.tekst1);
         tekst2 = (TextView) findViewById(R.id.tekst2);
         tekst.setText(Arrays.toString(ordArray.toArray()));
-
-
-        /*
-        button = new Button[aob];
-        for(int i = 0; i<button.length; i++) {
-           button[i] = (Button) findViewById(getResources().getIdentifier("button"+(i+1), "id", getPackageName()));
-           button[i].setOnClickListener(this);
-
-        }*/
     }
 
     /*
