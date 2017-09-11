@@ -19,18 +19,13 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-
-    Button[] button;
-    Button en;
     TextView tekst;
     TextView tekst1;
     TextView tekst2;
-    int aob = 26;
     ArrayList<String> ordliste;
     ArrayList<Character> ordArray;
     ArrayList<Character> temp;
     String ord;
-    final int maxforsok = 6;
     int antallforsok;
     boolean loop;
 
@@ -38,8 +33,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //Initialiserer
 
         ordliste = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.ord)));
         ordArray = new ArrayList<Character>();
@@ -61,19 +54,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tekst2 = (TextView) findViewById(R.id.tekst2);
         tekst.setText(Arrays.toString(ordArray.toArray()));
     }
-
-    /*
-    @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
-    }
-
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-    }
-    */
 
     public void counter(boolean b) {
         if(b) {
