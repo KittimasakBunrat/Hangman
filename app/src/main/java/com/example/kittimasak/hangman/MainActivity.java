@@ -62,15 +62,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tekst.setText(Arrays.toString(ordArray.toArray()));
 
 
-
+        /*
         button = new Button[aob];
         for(int i = 0; i<button.length; i++) {
            button[i] = (Button) findViewById(getResources().getIdentifier("button"+(i+1), "id", getPackageName()));
            button[i].setOnClickListener(this);
 
-        }
+        }*/
     }
 
+    /*
     @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
         super.onSaveInstanceState(outState, outPersistentState);
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
     }
+    */
 
     public void counter(boolean b) {
         if(b) {
