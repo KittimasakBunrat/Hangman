@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setArray(ordArray, ord);
 
         for (int i=0; i<ordArray.size(); i++) {
-            Character t = null;
+            Character t = '_';
             temp.add(t);
         }
 
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tekst1 = (TextView) findViewById(R.id.tekst1);
         tekst2 = (TextView) findViewById(R.id.tekst2);
         tekst.setText(Arrays.toString(ordArray.toArray()));
+        tekst1.setText(TextUtils.join(" ",temp));
         tekst2.setText(String.valueOf(antallforsok));
     }
 
@@ -71,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void gameLogic(ArrayList<Character> ord, ArrayList<Character> temp, Character c, Button b) {
-        if(antallforsok>=0 && !(temp.equals(ord))) {
+        if(antallforsok>=1 && !(temp.equals(ord))) {
         b.setBackgroundColor(Color.RED);
             for (int i = 0; i < ord.size(); i++) {
                 if (c.equals(ord.get(i))) {
@@ -81,12 +83,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
             counter(loop);
-            tekst1.setText(Arrays.toString(temp.toArray()));
+            tekst1.setText(TextUtils.join(" ",temp));
             tekst2.setText(String.valueOf(antallforsok));
             b.setEnabled(false);
         }
     }
-
 
 
     @Override
