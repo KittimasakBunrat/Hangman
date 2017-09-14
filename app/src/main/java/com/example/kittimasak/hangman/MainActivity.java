@@ -35,6 +35,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if(savedInstanceState != null) {
+
+        } else {
+
+        }
+
         ordliste = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.ord)));
         ordArray = new ArrayList<Character>();
         temp = new ArrayList<Character>();
@@ -58,12 +64,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tekst2.setText(String.valueOf(antallforsok));
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        /*
+        Sende inn følgende:
+        -ordArray
+        -temp
+        -TextView tekst1, tekst2, tekst3
+        -antallforsok
+         */
+
+    }
+
     public void counter(boolean b) {
         if(b) {
             antallforsok--;
         }
     }
-
 
     public void setArray(ArrayList<Character> ord,String s) {
         String k = s.toUpperCase();
@@ -92,7 +110,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-
         Button b = (Button) view;
         String stringTemp = (String) b.getText();
         loop = true;
