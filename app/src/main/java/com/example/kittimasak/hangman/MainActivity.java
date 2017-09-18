@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(savedInstanceState == null) {
+        if(savedInstanceState != null) {
 
             ordArraytemp = savedInstanceState.getCharArray("ordArray");
             temptemp = savedInstanceState.getCharArray("tempArray");
