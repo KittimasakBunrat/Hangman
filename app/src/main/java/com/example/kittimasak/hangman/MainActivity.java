@@ -109,36 +109,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void showLoss() {
-        builder.setMessage("TAPT");
-        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+    public void alertDialog(String s, String s1) {
+        builder.setMessage(s + s1);
+        builder.setPositiveButton(R.string.ret, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked OK button
             }
         });
-        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.retry, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User cancelled the dialog
             }
         });
         dialog = builder.create();
+        dialog.show();
     }
-
-    public void showWin() {
-        builder.setMessage("VUNNET");
-        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                // User clicked OK button
-            }
-        });
-        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                // User cancelled the dialog
-            }
-        });
-        dialog = builder.create();
-    }
-
 
     @Override
     public void onClick(View view) {
@@ -148,11 +133,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         gameLogic(ordArraytemp, temptemp,Character.valueOf(stringTemp.charAt(0)), b);
         if(antallforsok == 0) {
             tekst.setText("TAPTE");
-            showLoss();
-            dialog.show();
+            alertDialog(getResources().getString(R.string.lost), " " + Arrays.toString(ordArraytemp));
         } else if(Arrays.equals(ordArraytemp, temptemp)) {
-            showWin();
-            dialog.show();
+            alertDialog(getResources().getString(R.string.won), "");
             tekst.setText("VANT");
         }
     }
