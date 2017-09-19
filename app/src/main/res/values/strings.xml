@@ -1,14 +1,12 @@
 <resources>
 
-    <string name="play">PLAY</string>
-    <string name="stat">STATISTIC</string>
-    <string name="set">SETTINGS</string>
-    <string name="ok">OK</string>
-    <string name="cancel">CANCEL</string>
-    <string name="retry">RETRY</string>
-    <string name="ret">RETURN TO MAIN</string>
-    <string name="won">WON</string>
-    <string name="lost">LOST</string>
+    <string name="play">SPILL</string>
+    <string name="stat">STATISTIKK</string>
+    <string name="set">REGLER</string>
+    <string name="retry">PRØV IGJEN</string>
+    <string name="ret">TILBAKE TIL HOVEDMENY</string>
+    <string name="won">Gratulerer, du har vunnet!</string>
+    <string name="lost">Du tapte, ordet var: </string>
 
     <string name="b1">A</string>
     <string name="b2">B</string>

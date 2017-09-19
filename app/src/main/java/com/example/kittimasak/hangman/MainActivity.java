@@ -2,6 +2,7 @@ package com.example.kittimasak.hangman;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -26,7 +27,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     boolean loop;
     char[] ordArraytemp;
     char[] temptemp;
-    String temp;
     AlertDialog.Builder builder;
     AlertDialog dialog;
 
@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             ordArraytemp = savedInstanceState.getCharArray("ordArray");
             temptemp = savedInstanceState.getCharArray("tempArray");
             antallforsok = savedInstanceState.getInt("antall");
+            ordliste = savedInstanceState.getStringArrayList("ordliste");
 
         } else {
 
@@ -77,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         outState.putCharArray("ordArray", ordArraytemp);
         outState.putCharArray("tempArray", temptemp);
         outState.putInt("antall", antallforsok);
+        outState.putStringArrayList("ordliste", ordliste);
     }
 
     public void counter(boolean b) {
@@ -111,19 +113,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void alertDialog(String s, String s1) {
         builder.setMessage(s + s1);
+        builder.setCancelable(false);
         builder.setPositiveButton(R.string.ret, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                // User clicked OK button
+
             }
         });
         builder.setNegativeButton(R.string.retry, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                // User cancelled the dialog
+
+                finish();
+                startActivity(getIntent());
+
             }
         });
         dialog = builder.create();
         dialog.show();
     }
+
 
     @Override
     public void onClick(View view) {
@@ -132,11 +139,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         loop = true;
         gameLogic(ordArraytemp, temptemp,Character.valueOf(stringTemp.charAt(0)), b);
         if(antallforsok == 0) {
-            tekst.setText("TAPTE");
             alertDialog(getResources().getString(R.string.lost), " " + Arrays.toString(ordArraytemp));
         } else if(Arrays.equals(ordArraytemp, temptemp)) {
             alertDialog(getResources().getString(R.string.won), "");
-            tekst.setText("VANT");
         }
     }
 

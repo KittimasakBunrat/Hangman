@@ -10,15 +10,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/play"/>
-    <Button
-        android:id="@+id/stat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/stat"/>
+
     <Button
         android:id="@+id/set"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/set"/>
+
+    <Button
+        android:id="@+id/stat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/stat"/>
 
 </LinearLayout>
