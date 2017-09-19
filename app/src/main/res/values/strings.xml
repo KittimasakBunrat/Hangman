@@ -3,6 +3,8 @@
     <string name="play">PLAY</string>
     <string name="stat">STATISTIC</string>
     <string name="set">SETTINGS</string>
+    <string name="ok">OK</string>
+    <string name="cancel">CANCEL</string>
 
     <string name="b1">A</string>
     <string name="b2">B</string>
