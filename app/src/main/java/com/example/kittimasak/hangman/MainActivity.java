@@ -1,13 +1,10 @@
 package com.example.kittimasak.hangman;
 
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -18,15 +15,15 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    TextView tekst;
-    TextView tekst1;
-    TextView tekst2;
-    ArrayList<String> ordliste;
-    String ord;
-    int antallforsok;
+    TextView text;
+    TextView text1;
+    TextView text2;
+    ArrayList<String> wordlist;
+    String word;
+    int amount;
     boolean loop;
-    char[] ordArraytemp;
-    char[] temptemp;
+    char[] wordArray;
+    char[] wordArrayTemp;
     AlertDialog.Builder builder;
     AlertDialog dialog;
 
@@ -37,53 +34,53 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if(savedInstanceState != null) {
 
-            ordArraytemp = savedInstanceState.getCharArray("ordArray");
-            temptemp = savedInstanceState.getCharArray("tempArray");
-            antallforsok = savedInstanceState.getInt("antall");
-            ordliste = savedInstanceState.getStringArrayList("ordliste");
+            wordArray = savedInstanceState.getCharArray("ordArray");
+            wordArrayTemp = savedInstanceState.getCharArray("tempArray");
+            amount = savedInstanceState.getInt("antall");
+            wordlist = savedInstanceState.getStringArrayList("wordlist");
 
         } else {
 
-            ordliste = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.ord)));
-            int random = new Random().nextInt(ordliste.size());
-            ord = ordliste.get(random);
-            ordArraytemp = new char[ord.length()];
-            temptemp = new char[ord.length()];
-            antallforsok = 6;
+            wordlist = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.ord)));
+            int random = new Random().nextInt(wordlist.size());
+            word = wordlist.get(random);
+            wordArray = new char[word.length()];
+            wordArrayTemp = new char[word.length()];
+            amount = 6;
             loop = true;
 
-            setArray(ordArraytemp, ord);
+            setArray(wordArray, word);
 
 
-            for (int i=0; i<ordArraytemp.length; i++) {
+            for (int i = 0; i< wordArray.length; i++) {
                 Character t = '_';
-                temptemp[i] = t;
+                wordArrayTemp[i] = t;
             }
 
         }
 
         builder = new AlertDialog.Builder(this);
-        tekst = (TextView) findViewById(R.id.tekst);
-        tekst1 = (TextView) findViewById(R.id.tekst1);
-        tekst2 = (TextView) findViewById(R.id.tekst2);
-        tekst.setText(Arrays.toString(ordArraytemp));
-        tekst1.setText(Arrays.toString(temptemp));
-        tekst2.setText(String.valueOf(antallforsok));
+        text = (TextView) findViewById(R.id.tekst);
+        text1 = (TextView) findViewById(R.id.tekst1);
+        text2 = (TextView) findViewById(R.id.tekst2);
+        text.setText(Arrays.toString(wordArray));
+        text1.setText(Arrays.toString(wordArrayTemp));
+        text2.setText(String.valueOf(amount));
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
 
         super.onSaveInstanceState(outState);
-        outState.putCharArray("ordArray", ordArraytemp);
-        outState.putCharArray("tempArray", temptemp);
-        outState.putInt("antall", antallforsok);
-        outState.putStringArrayList("ordliste", ordliste);
+        outState.putCharArray("ordArray", wordArray);
+        outState.putCharArray("tempArray", wordArrayTemp);
+        outState.putInt("antall", amount);
+        outState.putStringArrayList("wordlist", wordlist);
     }
 
     public void counter(boolean b) {
         if(b) {
-            antallforsok--;
+            amount--;
         }
     }
 
@@ -95,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void gameLogic(char[] array1, char[] array2, Character c, Button b) {
-        if(antallforsok>=1 && !Arrays.equals(ordArraytemp, temptemp)) {
+        if(amount >=1 && !Arrays.equals(wordArray, wordArrayTemp)) {
             b.setBackgroundColor(Color.RED);
             for (int i = 0; i < array1.length; i++) {
                 if (c.equals(array1[i])) {
@@ -105,8 +102,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
             counter(loop);
-            tekst1.setText(Arrays.toString(temptemp));
-            tekst2.setText(String.valueOf(antallforsok));
+            text1.setText(Arrays.toString(wordArrayTemp));
+            text2.setText(String.valueOf(amount));
             b.setEnabled(false);
         }
     }
@@ -116,6 +113,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         builder.setCancelable(false);
         builder.setPositiveButton(R.string.ret, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
+
+                finish();
 
             }
         });
@@ -137,10 +136,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button b = (Button) view;
         String stringTemp = (String) b.getText();
         loop = true;
-        gameLogic(ordArraytemp, temptemp,Character.valueOf(stringTemp.charAt(0)), b);
-        if(antallforsok == 0) {
-            alertDialog(getResources().getString(R.string.lost), " " + Arrays.toString(ordArraytemp));
-        } else if(Arrays.equals(ordArraytemp, temptemp)) {
+        gameLogic(wordArray, wordArrayTemp,Character.valueOf(stringTemp.charAt(0)), b);
+        if(amount == 0) {
+            alertDialog(getResources().getString(R.string.lost), " " + Arrays.toString(wordArray));
+        } else if(Arrays.equals(wordArray, wordArrayTemp)) {
             alertDialog(getResources().getString(R.string.won), "");
         }
     }
