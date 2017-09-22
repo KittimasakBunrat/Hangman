@@ -1,17 +1,22 @@
 package com.example.kittimasak.hangman;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -19,13 +24,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView text1;
     TextView text2;
     ArrayList<String> wordlist;
+    Set<String> wordset;
     String word;
+    int random;
     int amount;
     boolean loop;
     char[] wordArray;
     char[] wordArrayTemp;
     AlertDialog.Builder builder;
     AlertDialog dialog;
+    SharedPreferences sp;
+    SharedPreferences.Editor spEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +50,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         } else {
 
-            wordlist = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.ord)));
-            int random = new Random().nextInt(wordlist.size());
+            sp = PreferenceManager.getDefaultSharedPreferences(this);
+            spEdit = sp.edit();
+            wordlist = new ArrayList<String>();
+
+            if (sp.contains("wordset")) {
+                wordset = sp.getStringSet("wordset", wordset);
+                    wordlist.addAll(wordset);
+                    sp.edit().clear().commit();
+            } else {
+                wordlist.addAll(Arrays.asList(getResources().getStringArray(R.array.ord)));
+            }
+
+            random = new Random().nextInt(wordlist.size());
+
             word = wordlist.get(random);
             wordArray = new char[word.length()];
             wordArrayTemp = new char[word.length()];
@@ -78,6 +99,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         outState.putStringArrayList("wordlist", wordlist);
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(!wordlist.isEmpty()) {
+            wordset = new HashSet<String>(wordlist);
+            spEdit.putStringSet("wordset", wordset);
+            spEdit.commit();
+        }
+    }
+
     public void counter(boolean b) {
         if(b) {
             amount--;
@@ -108,6 +139,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    public void alertBox(String s) {
+        builder.setMessage(s);
+        builder.setCancelable(false);
+
+        builder.setNeutralButton(R.string.ret, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    finish();
+
+                    }
+                });
+
+        dialog = builder.create();
+        dialog.show();
+    }
+
     public void alertDialog(String s, String s1) {
         builder.setMessage(s + s1);
         builder.setCancelable(false);
@@ -128,6 +175,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
         dialog = builder.create();
         dialog.show();
+        removeWord();
+        System.out.println(String.valueOf("LISTSIZE" + wordlist.size()));
+    }
+
+    private void removeWord() {
+
+        String stringList;
+
+        for(int i=0; i<wordlist.size(); i++) {
+            stringList = wordlist.get(i);
+            if(stringList.equals(word)) {
+                wordlist.remove(i);
+                System.out.println(Arrays.toString(wordlist.toArray()));
+            }
+        }
+
     }
 
 
@@ -139,7 +202,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         gameLogic(wordArray, wordArrayTemp,Character.valueOf(stringTemp.charAt(0)), b);
         if(amount == 0) {
             alertDialog(getResources().getString(R.string.lost), " " + Arrays.toString(wordArray));
-        } else if(Arrays.equals(wordArray, wordArrayTemp)) {
+        } else if (Arrays.equals(wordArray, wordArrayTemp)) {
             alertDialog(getResources().getString(R.string.won), "");
         }
     }
