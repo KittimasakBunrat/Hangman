@@ -6,5 +6,10 @@
         <item>Sykehus</item>
         <item>Kebab</item>
         <item>Klokke</item>
+        <item>Bil</item>
+        <item>Motorsykkel</item>
+        <item>Ball</item>
+        <item>Skole</item>
+        <item>Mat</item>
     </string-array>
 </resources>

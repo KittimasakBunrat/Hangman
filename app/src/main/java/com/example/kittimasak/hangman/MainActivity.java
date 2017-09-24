@@ -10,29 +10,36 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Random;
 import java.util.Set;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    TextView text;
     TextView text1;
     TextView text2;
+    ImageView iv;
     ArrayList<String> wordlist;
     Set<String> wordset;
     String word;
     int random;
     int amount;
+    int win;
+    int loss;
     boolean loop;
     char[] wordArray;
     char[] wordArrayTemp;
     AlertDialog.Builder builder;
     AlertDialog dialog;
+    AlertDialog.Builder builder1;
+    AlertDialog dialog1;
     SharedPreferences sp;
     SharedPreferences.Editor spEdit;
 
@@ -40,6 +47,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        wordlist = new ArrayList<String>();
 
         if(savedInstanceState != null) {
 
@@ -50,24 +59,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         } else {
 
-            sp = PreferenceManager.getDefaultSharedPreferences(this);
+            sp = getSharedPreferences("Hangman", MODE_PRIVATE);
             spEdit = sp.edit();
-            wordlist = new ArrayList<String>();
 
-            if (sp.contains("wordset")) {
+            if(sp.contains("win")) {
+                win = sp.getInt("win", win);
+            }
+            if(sp.contains("loss")) {
+                loss = sp.getInt("loss", loss);
+            }
+
+            if(sp.contains("wordset")) {
                 wordset = sp.getStringSet("wordset", wordset);
-                    wordlist.addAll(wordset);
-                    sp.edit().clear().commit();
+                wordlist.addAll(wordset);
+                sp.edit().remove("wordset").commit();
+
             } else {
                 wordlist.addAll(Arrays.asList(getResources().getStringArray(R.array.ord)));
             }
 
             random = new Random().nextInt(wordlist.size());
-
             word = wordlist.get(random);
             wordArray = new char[word.length()];
             wordArrayTemp = new char[word.length()];
-            amount = 6;
+            amount = 7;
             loop = true;
 
             setArray(wordArray, word);
@@ -81,12 +96,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         builder = new AlertDialog.Builder(this);
-        text = (TextView) findViewById(R.id.tekst);
+        builder1 = new AlertDialog.Builder(this);
         text1 = (TextView) findViewById(R.id.tekst1);
         text2 = (TextView) findViewById(R.id.tekst2);
-        text.setText(Arrays.toString(wordArray));
-        text1.setText(Arrays.toString(wordArrayTemp));
-        text2.setText(String.valueOf(amount));
+        iv = (ImageView) findViewById(R.id.bilde);
+        iv.setImageResource(R.drawable.first);
+        text1.setText(wordFixed(wordArrayTemp));
+        text2.setText(getResources().getString(R.string.amount) + "" + String.valueOf(amount));
+    }
+
+    public String wordFixed(char[] array) {
+        String wordReplaced = Arrays.toString(array)
+                .replace(",", "")  //remove the commas
+                .replace("[", "")  //remove the right bracket
+                .replace("]", "")  //remove the left bracket
+                .trim();
+        return wordReplaced;
+    }
+
+    public void setImage() {
+        if(amount == 6) {
+            iv.setImageResource(R.drawable.second);
+        } else if(amount == 5) {
+            iv.setImageResource(R.drawable.third);
+        } else if (amount == 4) {
+            iv.setImageResource(R.drawable.fourth);
+        } else if (amount == 3) {
+            iv.setImageResource(R.drawable.fifth);
+        } else if (amount == 2) {
+            iv.setImageResource(R.drawable.sixth);
+        } else if (amount == 1) {
+            iv.setImageResource(R.drawable.seven);
+        } else if (amount == 0) {
+            iv.setImageResource(R.drawable.eight);
+        }
     }
 
     @Override
@@ -99,16 +142,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         outState.putStringArrayList("wordlist", wordlist);
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if(!wordlist.isEmpty()) {
-            wordset = new HashSet<String>(wordlist);
+     private void save() {
+         if(!wordlist.isEmpty()) {
+            wordset = new LinkedHashSet<String>(wordlist);
             spEdit.putStringSet("wordset", wordset);
             spEdit.commit();
-        }
+       }
     }
-
     public void counter(boolean b) {
         if(b) {
             amount--;
@@ -133,26 +173,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
             counter(loop);
-            text1.setText(Arrays.toString(wordArrayTemp));
-            text2.setText(String.valueOf(amount));
+            text1.setText(wordFixed(wordArrayTemp));
+            text2.setText(getResources().getString(R.string.amount) + "" + String.valueOf(amount));
             b.setEnabled(false);
         }
-    }
-
-    public void alertBox(String s) {
-        builder.setMessage(s);
-        builder.setCancelable(false);
-
-        builder.setNeutralButton(R.string.ret, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-
-                    finish();
-
-                    }
-                });
-
-        dialog = builder.create();
-        dialog.show();
     }
 
     public void alertDialog(String s, String s1) {
@@ -160,39 +184,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         builder.setCancelable(false);
         builder.setPositiveButton(R.string.ret, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-
                 finish();
-
             }
         });
         builder.setNegativeButton(R.string.retry, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-
                 finish();
                 startActivity(getIntent());
-
             }
         });
+        removeWord();
+        save();
         dialog = builder.create();
         dialog.show();
-        removeWord();
-        System.out.println(String.valueOf("LISTSIZE" + wordlist.size()));
     }
 
     private void removeWord() {
 
-        String stringList;
-
         for(int i=0; i<wordlist.size(); i++) {
-            stringList = wordlist.get(i);
-            if(stringList.equals(word)) {
+            if(word.equals(wordlist.get(i))) {
                 wordlist.remove(i);
-                System.out.println(Arrays.toString(wordlist.toArray()));
             }
         }
 
     }
 
+    private void win() {
+        win = win + 1;
+        spEdit.putInt("win", win);
+        spEdit.commit();
+    }
+
+    private void loss() {
+        loss = loss + 1;
+        spEdit.putInt("loss", loss);
+        spEdit.commit();
+    }
 
     @Override
     public void onClick(View view) {
@@ -201,10 +228,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         loop = true;
         gameLogic(wordArray, wordArrayTemp,Character.valueOf(stringTemp.charAt(0)), b);
         if(amount == 0) {
-            alertDialog(getResources().getString(R.string.lost), " " + Arrays.toString(wordArray));
+            loss();
+            alertDialog(getResources().getString(R.string.lost), " " + wordFixed(wordArray));
         } else if (Arrays.equals(wordArray, wordArrayTemp)) {
+            win();
             alertDialog(getResources().getString(R.string.won), "");
         }
+        setImage();
     }
 
 }

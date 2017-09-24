@@ -1,16 +1,16 @@
 <resources>
 
-    <string name="play">SPILL</string>
-    <string name="stat">STATISTIKK</string>
-    <string name="set">REGLER</string>
-    <string name="retry">PRØV IGJEN</string>
-    <string name="ret">TILBAKE TIL HOVEDMENY</string>
-    <string name="won">Gratulerer, du har vunnet!</string>
-    <string name="lost">Du tapte, ordet var: </string>
-    <string name="amount">Antall forsøk igjen: </string>
-    <string name="win">Antall vinn: </string>
-    <string name="lose">Antall tap: </string>
-    <string name="rules">Hangman er et spill der en spiller tenker på ett ord eller en setning og den andre spilleren prøver å gjette det ved å bruke bokstaver eller tall, med ett begrenset antall av forsøk. I dette tilfellet er den andre spilleren din telefon.</string>
+    <string name="play">PLAY</string>
+    <string name="stat">STATISTIC</string>
+    <string name="set">RULES</string>
+    <string name="retry">TRY AGAIN</string>
+    <string name="ret">BACK TO MAIN</string>
+    <string name="won">Congratulations, you have won!</string>
+    <string name="lost">Sorry, you lost. The word was: </string>
+    <string name="amount">Amount of tries: </string>
+    <string name="win">Amount of wins: </string>
+    <string name="lose">Amount of loss: </string>
+    <string name="rules">Hangman is a game where one player thinks of a word, phrase or sentence and the other tries to guess it by suggesting letters or numbers, within a certain number of guesses. In this case your phone is the other player.</string>
     <string-array name="spinner">
         <item>Norsk</item>
         <item>English</item>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="ord">
+        <item>Dog</item>
+        <item>Operation</item>
+        <item>Hospital</item>
+        <item>Food</item>
+        <item>Watch</item>
+        <item>Car</item>
+        <item>Bike</item>
+        <item>Ball</item>
+        <item>School</item>
+        <item>Cat</item>
+    </string-array>
+</resources>

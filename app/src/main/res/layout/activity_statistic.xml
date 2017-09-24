@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#878787"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/tekst"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="YEEEEEEEET"
+        android:textSize="40sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tekst1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BEEEEEEEET"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/tekst2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="YEEEEEEEET"
+        android:textSize="40sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tekst3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BEEEEEEEET"
+        android:textSize="25sp" />
+
+
+</LinearLayout>
