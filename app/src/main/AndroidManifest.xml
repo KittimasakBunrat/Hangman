@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".FrontActivity">
+        <activity android:name="com.example.kittimasak.s300342.FrontActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -18,18 +18,18 @@
         </activity>
 
         <activity
-            android:name=".MainActivity"
-            android:parentActivityName=".FrontActivity">
+            android:name="com.example.kittimasak.s300342.MainActivity"
+            android:parentActivityName="com.example.kittimasak.s300342.FrontActivity">
         </activity>
 
         <activity
-            android:name=".RulesActivity"
-            android:parentActivityName=".FrontActivity">
+            android:name="com.example.kittimasak.s300342.RulesActivity"
+            android:parentActivityName="com.example.kittimasak.s300342.FrontActivity">
         </activity>
 
         <activity
-            android:name=".StatisticActivity"
-            android:parentActivityName=".FrontActivity">
+            android:name="com.example.kittimasak.s300342.StatisticActivity"
+            android:parentActivityName="com.example.kittimasak.s300342.FrontActivity">
         </activity>
     </application>
 

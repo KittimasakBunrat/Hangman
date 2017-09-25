@@ -1,4 +1,4 @@
-package com.example.kittimasak.hangman;
+package com.example.kittimasak.s300342;
 
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.kittimasak.hangman.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;

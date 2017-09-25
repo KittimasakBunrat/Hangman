@@ -1,4 +1,4 @@
-package com.example.kittimasak.hangman;
+package com.example.kittimasak.s300342;
 
 import android.app.Application;
 import android.content.Intent;
@@ -19,6 +19,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.example.kittimasak.hangman.R;
 
 import java.util.Locale;
 
